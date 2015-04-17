@@ -1,0 +1,25 @@
+.slide {}
+
+/*
+  slide headings
+ */
+
+.slide .sh1 {
+  font-size: 5em;
+}
+
+.slide .sh2 {
+  font-size: 4em;
+}
+
+.slide .sh3 {
+  font-size: 3em;
+}
+
+.slide .sh4 {
+  font-size: 2em;
+}
+
+.slide .sh5 {
+  font-size: 1.23em;
+}

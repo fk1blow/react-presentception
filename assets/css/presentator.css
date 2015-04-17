@@ -1,0 +1,90 @@
+/*
+  Presentator
+ */
+#presentator {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  overflow: hidden;
+  background-color: #999;
+}
+
+#presentator.active {
+  display: block;
+}
+
+/*
+  Page controler section
+ */
+#page-controls {
+  position: absolute;
+  right: 24px;
+  bottom: 24px;
+  width: 112px;
+  height: 112px;
+}
+
+#page-controls button {
+  border: none;
+  background: none;
+  border-radius: .3em;
+  outline: none;
+  color: #ccc;
+  opacity: .8;
+}
+
+#page-controls button:not(.inactive) {
+  transition: background-color .15s ease-in;
+  background-color: #DBDBDB;
+  color: #000;
+}
+
+#page-controls button:hover:not(.inactive) {
+  transition: all .15s ease-out;
+  background-color: #fff;
+}
+
+#page-controls .icon-arrow-up2 {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  margin-left: -18px;
+}
+#page-controls .icon-arrow-down2 {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  margin-left: -18px;
+}
+#page-controls .icon-arrow-right2 {
+  position: absolute;
+  right: 0;
+  top:50%;
+  margin-top: -18px;
+}
+#page-controls .icon-arrow-left2 {
+  position: absolute;
+  left: 0;
+  top:50%;
+  margin-top: -18px;
+}
+
+/*
+  nice button
+ */
+.close-btn {
+  transition: all .15s ease-out;
+  z-index: 3;
+}
+.close-btn:hover {
+  background-color: #000;
+  color: #fff;
+}
+
+
+.icon-arrow-right2:before {
+    content: "\ea3c";
+}

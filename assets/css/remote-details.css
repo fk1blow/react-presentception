@@ -1,0 +1,68 @@
+#remote-control {
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+}
+
+/*
+  Flexbox
+ */
+
+.container {
+  display: -webkit-flex;
+  display: flex;
+  flex-direction: column;
+}
+
+.btn-up {
+  flex-grow: 1;
+  /*flex: 0 0 100%;*/
+}
+
+.btn-down {
+  flex-grow: 1;
+  /*flex: 0 0 100%;*/
+}
+
+.container .container--vbox {
+  flex-direction: row;
+}
+
+.btn-directional {
+  flex-grow: 1;
+  height: 14rem;
+}
+
+.middle-box {
+  border-top: 1px solid #999;
+  border-bottom: 1px solid #999;
+}
+
+
+/*
+  Buttons
+ */
+
+#remote-control button {
+  border: none;
+  background: none;
+  outline: none;
+  color: #ccc;
+  opacity: .8;
+  border-radius: none;
+  font-size: 3rem;
+}
+
+#remote-control button:not(.inactive) {
+  transition: background-color .15s ease-in;
+  background-color: #DBDBDB;
+  color: #000;
+}
+
+#remote-control .icon-arrow-left2 {
+  border-right: 1px solid #999;
+}

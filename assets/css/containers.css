@@ -1,0 +1,118 @@
+html, body {
+  height: 100%;
+}
+
+/*hardcoded? no way!*/
+/*main {
+  margin-bottom: 55px;
+}*/
+
+/*
+  Main containers
+ */
+
+#app {
+  height: 100%;
+  /*max-height: 100%;*/
+}
+
+/*
+  Header
+ */
+
+#header {
+  position: relative;
+  z-index: 1;
+}
+
+#header menu {
+  line-height: 3.3em;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+#header menu li {
+  display: inline;
+}
+
+@media screen and (max-width: 42em) {
+  #header {
+    text-align: center;
+  }
+
+  #header menu {
+    display: none;
+  }
+
+  #header .logo {
+    margin-right: auto;
+    margin-left: auto;
+  }
+}
+
+/*
+  Footer
+ */
+
+#footer {
+  position: fixed;
+  z-index: 2;
+  bottom: 0;
+  max-height: 64px;
+  overflow: hidden;
+}
+
+/*
+  Slide containers
+ */
+
+.slide-mask {
+  height: 100%;
+  overflow:hidden;
+}
+
+
+/*
+  Flexbox
+ */
+
+.Aligner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Aligner-item {
+  max-width: 50%;
+}
+
+.Aligner-item--top {
+  align-self: flex-start;
+}
+
+.Aligner-item--bottom {
+  align-self: flex-end;
+}
+
+
+.fxitem {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+
+  justify-content: flex-start; /* align items in Main Axis */
+  align-items: stretch; /* align items in Cross Axis */
+  align-content: stretch; /* Extra space in Cross Axis */
+}
+
+
+@media screen and (max-width: 32em) {
+
+  .dn-xs {
+    display: none;
+  }
+
+}
