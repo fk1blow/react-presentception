@@ -20,11 +20,11 @@ export default {
 
   /*
     It establishes a connection between a Presenter
-    and a Remote(or the other wat around).
+    and a Remote(or the other way around).
 
     @param [string] presenterId
    */
-  connectToPresenter(presenterId) {
+  engagePresenter(presenterId) {
     if (presenter instanceof Presenter)
       return false;
     if (!presenterId)

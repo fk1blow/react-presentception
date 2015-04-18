@@ -1,5 +1,0 @@
-/*
-  PeerConnecter
- */
-
-export default PeerConnecter;
