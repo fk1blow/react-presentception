@@ -1,26 +1,21 @@
-// import Reflux from 'reflux';
-import alt from '../../lib/alt-proxy'
+import Reflux from 'reflux';
 import ApplicationActions from '../actions/application-actions'
-import Telekomand from '../../lib/telekomand/telekomand'
+import Telekomand from '../../lib/telekomand/telekomand';
 
-class ApplicationStore {
+export default Reflux.createStore({
 
-  constructor() {
-    this.bindListeners({
-      appInitialize: ApplicationActions.appInitialize
-    })
+  init() {
+    this.telekomand = {id: undefined, state: undefined}
+    this.listenToMany(ApplicationActions)
+  },
 
-    this.telekomand = {
-      id: undefined,
-      state: null
-    }
-  }
+  getInitialState() {
+    return {telekomand: this.telekomand}
+  },
 
-  appInitialize() {
+  onBootstrap() {
     this.telekomand = Telekomand.info()
-    this.setState({ telekomand: this.telekomand })
+    this.trigger({telekomand: this.telekomand})
   }
 
-}
-
-export default alt.createStore(ApplicationStore, 'ApplicationStore')
+})

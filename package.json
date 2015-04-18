@@ -61,7 +61,7 @@
     "tachyons": "^1.2.0",
     "url-loader": "^0.5.5",
     "validator": "^3.34.0",
-    "webpack": "^1.5.3",
+    "webpack": "^1.8.5",
     "webpack-dev-server": "^1.7.0",
     "yargs": "^3.3.1"
   }

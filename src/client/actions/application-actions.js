@@ -1,11 +1,5 @@
-import alt from '../../lib/alt-proxy';
+import Reflux from 'reflux'
 
-class ApplicationActions {
-
-  appInitialize() {
-    this.dispatch()
-  }
-
-}
-
-export default alt.createActions(ApplicationActions);
+export default Reflux.createActions([
+  'bootstrap'
+])

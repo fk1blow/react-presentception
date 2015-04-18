@@ -1,32 +1,23 @@
 import React from 'react'
+import Reflux from 'reflux'
 import {Link, RouteHandler} from 'react-router'
 import Header from '../components/header'
 import Footer from '../components/footer'
 import ApplicationStore from '../stores/application-store'
 import ApplicationActions from '../actions/application-actions'
 
-export default class App extends React.Component {
+export default React.createClass({
 
-  constructor(props) {
-    super(props)
-    this.state = ApplicationStore.getState()
-    this.onChange = this.onChange.bind(this)
-    ApplicationStore.listen(this.onChange)
-  }
+  mixins: [Reflux.connect(ApplicationStore)],
 
   componentDidMount() {
     require('fastclick').attach(document.body)
-    ApplicationActions.appInitialize()
-  }
+    ApplicationActions.bootstrap()
+  },
 
-  componentWillUnmount() {
-    ApplicationStore.unlisten(this.onChange)
-  }
-
-  onChange(store) {
-    console.log('onChange triggered')
-    this.setState(ApplicationStore.getState())
-  }
+  shouldComponentUpdate(oldState, newState) {
+    return oldState !== newState
+  },
 
   render() {
     return (
@@ -42,4 +33,4 @@ export default class App extends React.Component {
     );
   }
 
-}
+})
