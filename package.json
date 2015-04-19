@@ -45,6 +45,7 @@
     "lodash": "^3.6.0",
     "node-notifier": "^4.1.0",
     "normalize.css": "^3.0.2",
+    "object-assign": "^2.0.0",
     "peerjs": "^0.3.14",
     "piping": "0.1.6",
     "react": "^0.13.1",
