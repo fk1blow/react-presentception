@@ -1,10 +1,13 @@
 import React from 'react';
 import {Link} from 'react-router';
+import Telekomand from '../../../lib/telekomand/telekomand'
 
 class RemoteConnect extends React.Component {
 
   onConnect() {
-    console.log('peers should start connecting')
+    const peerId = this.refs.targetPeerInput.getDOMNode().value
+    console.log('should start connecting with', peerId)
+    Telekomand.engagePresenter(peerId)
   }
 
   render() {
@@ -20,7 +23,7 @@ class RemoteConnect extends React.Component {
           </p>
 
           <p>
-            <input type="text" className="input mrs" placeholder="other peer key" />
+            <input ref="targetPeerInput" type="text" className="input mrs" placeholder="other peer key" />
             <button onClick={this.onConnect.bind(this)} className="btn">connect</button>
           </p>
         </section>

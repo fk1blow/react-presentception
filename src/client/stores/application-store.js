@@ -7,6 +7,9 @@ export default Reflux.createStore({
   init() {
     this.telekomand = {id: undefined, state: undefined}
     this.listenToMany(ApplicationActions)
+    // Telekomand.on('ready', () => this.telekomandChangedState())
+    // Telekomand.on('become_remote', () => this.telekomandChangedState())
+    // Telekomand.on('become_presenter', () => this.telekomandChangedState())
   },
 
   getInitialState() {
@@ -14,6 +17,10 @@ export default Reflux.createStore({
   },
 
   onBootstrap() {
+    // this.telekomandChangedState()
+  },
+
+  telekomandChangedState() {
     this.telekomand = Telekomand.info()
     this.trigger({telekomand: this.telekomand})
   }
