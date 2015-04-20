@@ -41,7 +41,7 @@ export default class TelekomandFacade {
   }
 
   /*
-    Tells the remote to transmit a message to the presenter
+    Uses the remote to send a message to the presenter
 
     @param [string] message the message/command sent to presenter
    */
