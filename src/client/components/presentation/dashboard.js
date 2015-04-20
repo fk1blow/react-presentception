@@ -5,9 +5,9 @@ export default class PresentationDashboard extends React.Component {
 
   render() {
     return (
-      <div id="presentation-dashboard" className="mw8 center phl-ns">
-        <h1 className="ttu f2">
-          presentations
+      <div id="presentation-dashboard" className="mw8 center phm phl-ns">
+        <h1 className="f1-ns normal">
+          Presentations
         </h1>
 
         <p>

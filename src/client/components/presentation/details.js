@@ -19,9 +19,9 @@ class PresentationDetails extends React.Component {
   render() {
     const params = this.context.router.getCurrentParams();
     return (
-      <div id="presentation-details" className="mw8 center phl-ns">
-        <h1 className="ttu f2">
-          title for presentation # {params.id}
+      <div id="presentation-details" className="mw8 center phm phl-ns">
+        <h1 className="f1-ns normal">
+          React presentation #{params.id}
         </h1>
 
         <section>
