@@ -10,7 +10,7 @@ class RemoteConnect extends React.Component {
   }
 
   onSendMessage() {
-    Telekomand.commandPresenter(new Date().getTime())
+    Telekomand.commandPresenter('NEXT')
   }
 
   render() {

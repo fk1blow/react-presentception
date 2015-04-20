@@ -8,6 +8,8 @@
   exchanged between Remote and Presenter.
  */
 
+import Kommands from './kommands'
+
 class PresenterControl {
 
   constructor(connector) {
@@ -29,9 +31,14 @@ class PresenterControl {
   handlePeerHasEngage(connection) {
     this._engaged = true
     this.onEngage()
-    connection.on('data', (data) => {
-      this.onCommand(data)
+    connection.on('data', data => {
+      if (this._validateCommand(data))
+        this.onCommand(data)
     })
+  }
+
+  _validateCommand(command) {
+    return Kommands[command]
   }
 
 }

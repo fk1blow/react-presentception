@@ -52,8 +52,10 @@ export default class TelekomandFacade {
   _attachConnectorHandlers() {
     this._connector.on('peer.initialize', peerId =>
       this.emit('telekomand.ready', peerId))
+
     this._connector.on('peer.connection_error', err =>
       this.emit('telekomand.error', err))
+
     this._connector.on('peer.wrapper_error', err =>
       this.emit('telekomand.error', err))
   }
@@ -62,11 +64,15 @@ export default class TelekomandFacade {
     this._remoteControl.onEngage = () => {
       console.log('remeote control has engaged a presenter')
     }
+
     this._presenterControl.onEngage = () => {
       console.log('presenter has been engaged by a remote')
     }
+
+    // TODO: you should filter the command, inside the presenter
     this._presenterControl.onCommand = (command) => {
       console.log('presenter received command', command)
+
     }
   }
 

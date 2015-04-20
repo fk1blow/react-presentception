@@ -65,7 +65,8 @@ class PeerjsConnector {
     })
     this._wrapper.on('connection', dataConnection =>
       this.emit('peer.become_host', dataConnection))
-    this._wrapper.on('error', err => this.emit('peer.wrapper_error', err))
+    this._wrapper.on('error', err =>
+      this.emit('peer.wrapper_error', err))
   }
 
 }
