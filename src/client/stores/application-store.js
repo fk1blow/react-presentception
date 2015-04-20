@@ -7,7 +7,6 @@ export default Reflux.createStore({
   init() {
     this.telekomand = {id: undefined, state: undefined}
     this.listenToMany(ApplicationActions)
-    Telekomand.on('telekomand.ready', (id) => this.handleTelekomandReady(id))
   },
 
   getInitialState() {
@@ -15,8 +14,7 @@ export default Reflux.createStore({
   },
 
   onBootstrap() {
-    this.telekomand = Telekomand.info()
-    this.trigger({telekomand: this.telekomand})
+    Telekomand.on('telekomand.ready', (id) => this.handleTelekomandReady(id))
   },
 
   handleTelekomandReady(id) {
