@@ -6,11 +6,7 @@ class RemoteConnect extends React.Component {
 
   onConnect() {
     const peerId = this.refs.targetPeerInput.getDOMNode().value
-    Telekomand.engagePresenter(peerId)
-  }
-
-  onSendMessage() {
-    Telekomand.commandPresenter('NEXT')
+    Telekomand.engagePeer(peerId)
   }
 
   render() {
@@ -29,12 +25,6 @@ class RemoteConnect extends React.Component {
             <input ref="targetPeerInput" type="text" className="input mrs" placeholder="other peer key" />
             <button onClick={this.onConnect.bind(this)} className="btn">connect</button>
           </p>
-        </section>
-
-        <section>
-          <h3>test message sending</h3>
-
-          <button onClick={this.onSendMessage.bind(this)} className="btn">send</button>
         </section>
 
         <section>

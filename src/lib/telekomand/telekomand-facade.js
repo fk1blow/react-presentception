@@ -27,7 +27,7 @@ export default class TelekomandFacade {
     @param [string] peerId the id of the presenter peer
     @return [bool] false if already engaged, true otherwise
    */
-  engagePresenter(peerId) {
+  engagePeer(peerId) {
     this._remoteControl.connectToPresenter(peerId)
   }
 
@@ -36,7 +36,7 @@ export default class TelekomandFacade {
 
     @return [bool] false if no engaged presenter, true otherwise
    */
-  leavePresenter() {
+  leavePeer() {
     console.log('should leave the engaged presenter')
   }
 
@@ -45,7 +45,7 @@ export default class TelekomandFacade {
 
     @param [string] message the message/command sent to presenter
    */
-  commandPresenter(command) {
+  sendCommand(command) {
     this._remoteControl.sendCommand(command)
   }
 

@@ -37,7 +37,7 @@ class PeerjsConnector {
 
   _createWrapper() {
     const peerWrapper = new Peer({
-      key: '17ilpd57vbexko6r',
+      key: 'x7fwx2kavpy6tj4i',
       debug: 3,
       logFunction: function() {
         var copy = Array.prototype.slice.call(arguments).join(' ')

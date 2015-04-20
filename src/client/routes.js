@@ -35,7 +35,7 @@ export default (
     </Route>
 
     <Route name="remote" handler={Remote}>
-      <DefaultRoute name="remote-dashboar" handler={RemoteDashboard} />
+      <DefaultRoute name="remote-dashboard" handler={RemoteDashboard} />
       <Route name="remote-connect" handler={RemoteConnect} path="connect" />
       <Route name="remote-control" handler={RemoteControl} path="control" />
     </Route>
