@@ -16,7 +16,7 @@ const noop = function() {};
   Instead of having to many handlers laying around inside the Presentator,
   there should be another component involved, taking over the `handling`
   part of the greater role.
-  Name it `Slider`
+  Name it `Slider`???
 
 
   TODO: #refactor role
@@ -24,9 +24,12 @@ const noop = function() {};
   It receives `slide` events from differrent delegating objects.
   The delegates are react components or just plain js objects.
 
-  TODO: #reflux and es6 classes
 
-  integrate reflux(connect) with es6 classes - no mixins or extends
+  TODO: #refactor routehandler props events
+
+  The `onSlidePresented` and `onSlideRemoved` are not clear and
+  their intention is not well understood.
+  Rename the handlers to `onSliderActivated`, `onSliderDeactivated`
 
  */
 const Presentator = React.createClass({
@@ -54,14 +57,14 @@ const Presentator = React.createClass({
   },
 
   componentWillUnmount() {
-    // is there really a need for null fing the callbacks?
+    // is there really a need for nullifying the callbacks?
     this.slideNavigation.onNextSlide = null;
     this.slideNavigation.onPrevSlide = null;
     this.slideNavigation = null;
   },
 
   // TODO: refactor @#2
-  onSlidePresented() {
+  onSliderMounted() {
     const presentation = this.currentPresentation();
     PresentatorActions.presentationStarted(presentation);
     this.slideNavigation.activate();
@@ -70,7 +73,7 @@ const Presentator = React.createClass({
   },
 
   // TODO: refactor @#2
-  onSlideRemoved() {
+  onSliderUnmounted() {
     PresentatorActions.presentationEnded();
     this.slideNavigation.deactivate();
     // TODO: should pass the slide that has been presented??
@@ -155,8 +158,8 @@ const Presentator = React.createClass({
 
         <RouteHandler
           presentation={this.currentPresentation()}
-          onSlidePresented={() => this.onSlidePresented()}
-          onSlideRemoved={this.onSlideRemoved} />
+          onSliderMounted={this.onSliderMounted}
+          onSliderUnmounted={this.onSliderUnmounted} />
       </div>
     )
   }

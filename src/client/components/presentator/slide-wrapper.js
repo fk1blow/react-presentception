@@ -3,15 +3,17 @@ import {RouteHandler} from 'react-router';
 
 class SlideWrapper extends React.Component {
 
+  // TODO: use react's prop types
   componentDidMount() {
-    if (this.props.onSlidePresented instanceof Function) {
-      this.props.onSlidePresented();
+    if (this.props.onSliderMounted instanceof Function) {
+      this.props.onSliderMounted();
     }
   }
 
+  // TODO: use react's prop types
   componentWillUnmount() {
-    if (this.props.onSlideRemoved instanceof Function) {
-      this.props.onSlideRemoved();
+    if (this.props.onSliderUnmounted instanceof Function) {
+      this.props.onSliderUnmounted();
     }
   }
 
