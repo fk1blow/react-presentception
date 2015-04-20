@@ -15,7 +15,6 @@ class PeerjsConnector {
     this._attachWrapperListeners()
   }
 
-  /**/
   connectToPeer(peerId) {
     if (typeof peerId !== 'string')
       throw new TypeError('invalid peerId param type', typeof peerId)
@@ -23,8 +22,17 @@ class PeerjsConnector {
       this._createPeerConnection(peerId)
   }
 
+  disconnectFromPeer() {
+    console.log('should disconnect from the current peer')
+  }
+
   getPeerId() {
     return this._peerId
+  }
+
+  sendMessage(message) {
+    if (this._connection)
+      this._connection.send(message)
   }
 
   _createWrapper() {
@@ -55,7 +63,8 @@ class PeerjsConnector {
       this._peerId = id
       this.emit('peer.initialize', id)
     })
-    this._wrapper.on('connection', () => this.emit('peer.become_host'))
+    this._wrapper.on('connection', dataConnection =>
+      this.emit('peer.become_host', dataConnection))
     this._wrapper.on('error', err => this.emit('peer.wrapper_error', err))
   }
 

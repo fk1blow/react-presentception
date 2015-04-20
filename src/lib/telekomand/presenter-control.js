@@ -11,19 +11,27 @@
 class PresenterControl {
 
   constructor(connector) {
-    this.onEngage = function() {} // noop by default
+    this.onEngage = function() {}
+    this.onCommand = function() {}
     this._connector = connector
     this._engaged = false
-    this._connector.on('peer.become_host', () => this.handlePeerHasEngage())
+    this._connector.on('peer.become_host', this.handlePeerHasEngage.bind(this))
   }
 
   disconnectFromRemote() {
     this._connector.disconnectFromPeer()
   }
 
-  handlePeerHasEngage() {
+  hasEngaged() {
+    return this._engaged
+  }
+
+  handlePeerHasEngage(connection) {
     this._engaged = true
     this.onEngage()
+    connection.on('data', (data) => {
+      this.onCommand(data)
+    })
   }
 
 }

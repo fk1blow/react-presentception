@@ -19,7 +19,7 @@ export default class TelekomandFacade {
     this._remoteControl = remoteControl
     this._commandMode = initialMode
     this._attachConnectorHandlers()
-    this._attachControlHandlers()
+    this._attachControlsHandlers()
   }
 
   /*
@@ -34,12 +34,21 @@ export default class TelekomandFacade {
   }
 
   /*
-    Leaves the currently engaged presenter.
+    Leaves the currently engaged presenter and disconnects from peer
 
     @return [bool] false if no engaged presenter, true otherwise
    */
   leavePresenter() {
     console.log('should leave the engaged presenter')
+  }
+
+  /*
+    Tells the remote to transmit a message to the presenter
+
+    @param [string] message the message/command sent to presenter
+   */
+  commandPresenter(command) {
+    this._remoteControl.sendCommand(command)
   }
 
   _attachConnectorHandlers() {
@@ -55,13 +64,15 @@ export default class TelekomandFacade {
       err => this.emit('telekomand.error', err))
   }
 
-  _attachControlHandlers() {
+  _attachControlsHandlers() {
     this._remoteControl.onEngage = () => {
       console.log('remeote control has engaged a presenter')
     }
-
     this._presenterControl.onEngage = () => {
       console.log('presenter has been engaged by a remote')
+    }
+    this._presenterControl.onCommand = (command) => {
+      console.log('presenter received command', command)
     }
   }
 
