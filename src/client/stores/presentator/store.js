@@ -55,6 +55,8 @@ export default Reflux.createStore({
         followingIndex = slide - 1
     }
 
+    this.presentator.atSlideStart = (followingIndex === startIndex)
+    this.presentator.atSlideEnd = (followingIndex === endIndex)
     this.presentator.slide = followingIndex
     this.trigger(this.presentator)
   }
