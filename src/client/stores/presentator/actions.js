@@ -4,5 +4,6 @@ export default Reflux.createActions([
   'presentationStarted',
   'presentationEnded',
   'toNextSlide',
-  'toPrevSlide'
+  'toPrevSlide',
+  'navigateSlide'
 ]);
