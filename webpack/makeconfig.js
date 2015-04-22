@@ -1,5 +1,3 @@
-/* @flow weak */
-
 'use strict';
 
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
@@ -31,9 +29,13 @@ module.exports = function(isDevelopment) {
   }
 
   var config = {
+
     cache: isDevelopment,
+
     debug: isDevelopment,
+
     devtool: isDevelopment ? 'eval-source-map' : '',
+
     entry: {
       app: isDevelopment ? [
         'webpack-dev-server/client?http://localhost:8888',
@@ -60,20 +62,26 @@ module.exports = function(isDevelopment) {
         './src/client/main.js'
       ]
     },
+
     module: {
-      loaders: [{
-        loader: 'url-loader?limit=100000',
-        test: /\.(gif|jpg|png|woff|woff2|eot|ttf|svg)$/
-      }, {
-        exclude: /node_modules/,
-        loaders: isDevelopment ? [
-          'react-hot', 'babel-loader'
-        ] : [
-          'babel-loader'
-        ],
-        test: /\.js$/
-      }].concat(stylesLoaders())
+      loaders: [
+        {
+          loader: 'url-loader?limit=100000',
+          test: /\.(gif|jpg|png|woff|woff2|eot|ttf|svg)$/
+        },
+
+        {
+          exclude: /node_modules/,
+          loaders: isDevelopment ? [
+            'react-hot', 'babel-loader', 'flowcheck'
+          ] : [
+            'babel-loader'
+          ],
+          test: /\.js$/
+        }
+      ].concat(stylesLoaders())
     },
+
     output: isDevelopment ? {
       path: path.join(__dirname, '/build/'),
       filename: '[name].js',
@@ -82,6 +90,7 @@ module.exports = function(isDevelopment) {
       path: 'build/',
       filename: '[name].js'
     },
+
     plugins: (function() {
       var plugins = [
         new webpack.DefinePlugin({
@@ -115,9 +124,11 @@ module.exports = function(isDevelopment) {
         );
       return plugins;
     })(),
+
     resolve: {
       extensions: ['', '.js', '.json']
     }
+
   };
 
   return config;

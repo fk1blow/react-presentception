@@ -65,5 +65,8 @@
     "webpack": "^1.8.5",
     "webpack-dev-server": "^1.7.0",
     "yargs": "^3.3.1"
+  },
+  "devDependencies": {
+    "gulp-flowtype": "^0.4.6"
   }
 }
