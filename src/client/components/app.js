@@ -3,8 +3,8 @@ import Reflux from 'reflux'
 import {Link, RouteHandler} from 'react-router'
 import Header from '../components/header'
 import Footer from '../components/footer'
-import ApplicationStore from '../stores/application-store'
-import ApplicationActions from '../actions/application-actions'
+import ApplicationStore from '../stores/application/store'
+import ApplicationActions from '../stores/application/actions'
 
 export default React.createClass({
 

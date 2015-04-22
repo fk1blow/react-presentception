@@ -1,6 +1,6 @@
 import Reflux from 'reflux';
-import ApplicationActions from '../actions/application-actions'
-import Telekomand from '../../lib/telekomand/telekomand';
+import ApplicationActions from './actions'
+import Telekomand from '../../../lib/telekomand/telekomand';
 
 export default Reflux.createStore({
 
