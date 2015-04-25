@@ -32,6 +32,7 @@ class PresenterControl {
     this._engaged = true
     this.onEngage()
     connection.on('data', data => {
+      console.log("data:", data)
       if (this._validateCommand(data))
         this.onCommand(data)
     })

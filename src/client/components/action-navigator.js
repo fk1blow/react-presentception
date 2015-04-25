@@ -1,19 +1,18 @@
 import React from 'react'
 
 const DefaultKeyMappings = {
-  32: 'space',
-  39: 'right',
-  37: 'left',
-  38: 'up',
-  40: 'down',
-  27: 'esc'
+  32: 'SPACE',
+  39: 'RIGHT',
+  37: 'LEFT',
+  38: 'UP',
+  40: 'DOWN',
+  27: 'ESC'
 }
 
 class ActionNavigator extends React.Component {
 
   constructor(props) {
     super(props)
-    this._handler = this._handleKeyboardEvent.bind(this)
   }
 
   componentDidMount() {

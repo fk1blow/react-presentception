@@ -3,9 +3,9 @@ import classNames from 'classnames'
 import {RouteHandler, Link} from 'react-router'
 import Reflux from 'reflux'
 
-import PageControls from './page-controls'
 import PresentatorStore from '../../stores/presentator/store'
 import PresentatorActions from '../../stores/presentator/actions'
+import PageControls from './page-controls'
 import ActionNavigator from '../../components/action-navigator'
 import DynamicRouteHandler from '../../components/dynamic-route-handler'
 
@@ -47,15 +47,14 @@ const Presentator = React.createClass({
     PresentatorActions.navigateSlide(keyType)
   },
 
-  onLeftNav() {
-    PresentatorActions.navigateSlide('left')
+  onPageControlLeftNav() {
+    PresentatorActions.navigateSlide('LEFT')
   },
 
-  onRightNav() {
-    PresentatorActions.navigateSlide('right')
+  onPageControlRightNav() {
+    PresentatorActions.navigateSlide('RIGHT')
   },
 
-  // TODO: move this to the presenter store
   currentPresentation() {
     const {id, index} = this.context.router.getCurrentParams()
     return {
@@ -80,16 +79,16 @@ const Presentator = React.createClass({
     return (
       <ActionNavigator enable={this.state.active} onKeyNavigation={this.onKeyNavigation}>
         <div id="presentator" className={presentatorCls}>
-          <button onClick={this.onCloseModal}
-                  title="close the presentation"
-                  className="pos-abs right-0 tc black close-btn input-invisible small">
-            ESC
-          </button>
+          <button
+            onClick={this.onCloseModal}
+            title="close the presentation"
+            className="pos-abs right-0 tc black close-btn input-invisible small"
+            label="asdasd">ESC</button>
 
           <PageControls
             className={controlsCls}
-            onLeftNav={this.onLeftNav}
-            onRightNav={this.onRightNav} />
+            onLeftNav={this.onPageControlLeftNav}
+            onRightNav={this.onPageControlRightNav} />
 
           <DynamicRouteHandler
             routeParams={routeParams}

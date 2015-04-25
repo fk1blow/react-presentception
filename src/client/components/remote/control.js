@@ -12,11 +12,11 @@ class RemoteControl extends React.Component {
   }
 
   onButtonPrev() {
-    Telekomand.sendCommand('PREV')
+    Telekomand.sendCommand('LEFT')
   }
 
   onButtonNext() {
-    Telekomand.sendCommand('NEXT')
+    Telekomand.sendCommand('RIGHT')
   }
 
   render() {

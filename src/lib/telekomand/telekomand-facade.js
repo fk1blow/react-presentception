@@ -63,16 +63,17 @@ export default class TelekomandFacade {
   _attachControlsHandlers() {
     this._remoteControl.onEngage = () => {
       console.log('remeote control has engaged a presenter')
+      this.emit('remote.engage')
     }
 
     this._presenterControl.onEngage = () => {
       console.log('presenter has been engaged by a remote')
+      this.emit('presentator.engage')
     }
 
-    // TODO: you should filter the command, inside the presenter
     this._presenterControl.onCommand = (command) => {
       console.log('presenter received command', command)
-
+      this.emit('remote.command', command)
     }
   }
 
