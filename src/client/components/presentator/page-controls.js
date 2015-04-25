@@ -1,6 +1,8 @@
 import React from 'react';
 import classNames from 'classnames';
 
+const noop = function() {}
+
 class PageControls extends React.Component {
 
   render() {
@@ -29,6 +31,13 @@ class PageControls extends React.Component {
     );
   }
 
+}
+
+PageControls.defaultProps = {
+  onLeftNav: noop,
+  onUpNav: noop,
+  onDownNav: noop,
+  onRightNav: noop
 }
 
 export default PageControls;
