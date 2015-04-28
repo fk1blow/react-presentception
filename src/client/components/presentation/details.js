@@ -6,7 +6,26 @@ import PresentatorActions from '../../stores/presentator/actions';
 
 class PresentationDetails extends React.Component {
 
+  constructor(props) {
+    super(props)
+    // this.state = { activePresenter: false }
+    this.hardcodedTotalSlides = 6
+  }
+
+  componentDidMount() {
+    const routeParams = this.context.router.getCurrentParams()
+    if(parseInt(routeParams.index) > 0) {
+      PresentatorActions.presentationStarted(routeParams.index,
+        this.hardcodedTotalSlides)
+    }
+  }
+
+  componentWillUnmount() {
+    PresentatorActions.presentationEnded()
+  }
+
   onBtnShowClick() {
+    PresentatorActions.presentationStarted(1, this.hardcodedTotalSlides)
     this.context.router.transitionTo('slide-presentation',
       {id: this.context.router.getCurrentParams().id, index: 1});
   }
@@ -14,6 +33,12 @@ class PresentationDetails extends React.Component {
   onPresentatorShouldHide() {
     this.context.router.transitionTo('presentation-details',
       {id: this.context.router.getCurrentParams().id});
+    this.setState({activePresenter: false})
+  }
+
+  onPresentatorWillSlide(slide) {
+    this.context.router.transitionTo('slide-presentation',
+      {id: this.context.router.getCurrentParams().id, index: slide});
   }
 
   render() {
@@ -47,9 +72,13 @@ class PresentationDetails extends React.Component {
         </section>
 
         <Presentator
-          onShouldHide={this.onPresentatorShouldHide.bind(this)}
-          startIndex={1}
-          endIndex={6} />
+          routeParams={params}
+          initialSlide={params.index}
+          onWillHide={this.onPresentatorShouldHide.bind(this)}
+          onWillSlide={this.onPresentatorWillSlide.bind(this)}
+          totalSlides={6}>
+            <RouteHandler presentation={params} />
+        </Presentator>
       </div>
     );
   }

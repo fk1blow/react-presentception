@@ -17,30 +17,25 @@ const Presentator = React.createClass({
 
   getDefaultProps() {
     return {
-      startIndex: 1,
-      endIndex: 1,
-      onShouldHide: noop,
-      onDidPresent: noop,
-      onWillHide: noop
+      onWillHide: noop,
+      onWillSlide: noop
     }
   },
 
-  contextTypes: {
-    router: React.PropTypes.func
+  componentDidMount() {
+    PresentatorStore.listenTo(PresentatorActions.didUpdateSlide,
+      this.props.onWillSlide)
   },
 
-  onSliderMounted() {
-    PresentatorActions.presentationStarted(this.currentPresentation())
-    this.props.onDidPresent({index: 'hardcoded 1'})
-  },
-
-  onSliderUnmounted() {
-    PresentatorActions.presentationEnded()
-    this.props.onWillHide({index: 'hardcoded 1'})
+  componentWillReceiveProps(props) {
+    const {routeParams} = props
+    if (routeParams && routeParams != this.props.routeParams)
+      PresentatorActions.didNavigateToSlide(parseInt(routeParams.index))
   },
 
   onCloseModal() {
-    this.props.onShouldHide()
+    PresentatorActions.presentationEnded()
+    this.props.onWillHide()
   },
 
   onKeyNavigation(keyType) {
@@ -55,16 +50,6 @@ const Presentator = React.createClass({
     PresentatorActions.navigateSlide('RIGHT')
   },
 
-  currentPresentation() {
-    const {id, index} = this.context.router.getCurrentParams()
-    return {
-      id: parseInt(id),
-      slide: parseInt(index),
-      startIndex: this.props.startIndex,
-      endIndex: this.props.endIndex
-    }
-  },
-
   render() {
     const presentatorCls = classNames('w-100 h-100 brs bg-silver', {
       'dn': !this.state.active
@@ -73,8 +58,8 @@ const Presentator = React.createClass({
       'leftActive': !this.state.atSlideStart,
       'rightActive': !this.state.atSlideEnd
     }
-    const {id} = this.context.router.getCurrentParams()
-    const routeParams = {id, index: this.state.slide}
+    const {id} = this.props.routeParams
+    var routeParams = {id, index: this.state.slide}
 
     return (
       <ActionNavigator enable={this.state.active} onKeyNavigation={this.onKeyNavigation}>
@@ -90,11 +75,7 @@ const Presentator = React.createClass({
             onLeftNav={this.onPageControlLeftNav}
             onRightNav={this.onPageControlRightNav} />
 
-          <DynamicRouteHandler
-            routeParams={routeParams}
-            presentation={this.currentPresentation()}
-            onSliderMounted={this.onSliderMounted}
-            onSliderUnmounted={this.onSliderUnmounted} />
+          {this.props.children}
         </div>
       </ActionNavigator>
     )

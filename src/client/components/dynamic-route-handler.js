@@ -4,7 +4,8 @@ import {RouteHandler} from 'react-router'
 class DynamicRouteHandler extends React.Component {
 
   componentWillReceiveProps(props) {
-    if (props.routeParams.index !== this.props.routeParams.index)
+    const routeParams = this.props.routeParams
+    if (routeParams && routeParams !== this.props.routeParams)
       this.context.router.transitionTo('slide-presentation', props.routeParams)
   }
 

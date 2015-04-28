@@ -5,12 +5,10 @@ export default Reflux.createStore({
 
   init() {
     this.presentator = {
-      id: 0,
       active: false,
-      slide: 1,
+      slide: 0,
       atSlideStart: false,
       atSlideEnd: false,
-      startIndex: 1,
       endIndex: 1
     }
     this.listenToMany(PresentatorActions)
@@ -20,49 +18,64 @@ export default Reflux.createStore({
     return this.presentator
   },
 
-  onPresentationStarted(presentation) {
-    const {id, slide, startIndex, endIndex} = presentation
+  onPresentationStarted(slide, totalSlides) {
+    const endIndex = totalSlides
     this.updatePresentator({
-      id, startIndex, endIndex, slide,
-      active: (slide >= startIndex && slide <= endIndex),
-      atSlideStart: (slide === startIndex),
+      slide: parseInt(slide),
+      endIndex,
+      active: (slide >= 1 && slide <= endIndex),
+      atSlideStart: (slide === 1),
       atSlideEnd: (slide === endIndex)
     })
   },
 
   onPresentationEnded() {
-    const {id, startIndex, endIndex} = this.presentator
+    const {endIndex} = this.presentator
     this.presentator.active = false
-    this.updatePresentator({ id, atSlideStart: false, atSlideEnd: false,
-      slide: 1, active: false, startIndex, endIndex })
+    this.updatePresentator({ atSlideStart: false, atSlideEnd: false,
+      slide: 0, active: false, endIndex })
   },
 
   onNavigateSlide(key) {
-    console.log("key:", key)
-    const {id, endIndex, slide, startIndex, active} = this.presentator
+    const {endIndex, slide, active} = this.presentator
     var followingIndex = slide
 
     if (key === 'RIGHT') {
       if (followingIndex < endIndex)
-        slide = slide + 1
+        followingIndex = slide + 1
     }
     else if (key === 'LEFT') {
-      if (followingIndex > startIndex)
-        slide = slide - 1
+      if (followingIndex > 1)
+        followingIndex = slide - 1
     }
 
-    this.updateSlideState({
-      id, active, startIndex, endIndex, slide,
-      atSlideStart: (followingIndex === startIndex),
-      atSlideEnd: (followingIndex === endIndex)
+    if (followingIndex != slide)
+      PresentatorActions.didUpdateSlide(followingIndex)
+
+    this.updatePresentator({
+      slide: followingIndex,
+      atSlideStart: (followingIndex === 1),
+      atSlideEnd: (followingIndex === endIndex),
+      active, endIndex
+    })
+  },
+
+  didNavigateToSlide(slideNavigated) {
+    const {atSlideStart, atSlideEnd,
+    endIndex, active} = this.presentator
+    this.updatePresentator({
+      slide: slideNavigated,
+      endIndex, active,
+      atSlideStart: (slideNavigated === 1),
+      atSlideEnd: (slideNavigated === endIndex)
     })
   },
 
   updatePresentator(slideState) {
-    const {id, atSlideStart, atSlideEnd, slide,
-      startIndex, endIndex} = slideState
-    this.presentator = {id, atSlideStart, atSlideEnd,
-      slide, active, startIndex, endIndex}
+    const {atSlideStart, atSlideEnd, slide,
+     endIndex, active} = slideState
+    this.presentator = {atSlideStart, atSlideEnd,
+      slide, active, endIndex}
     this.trigger(this.presentator)
   }
 
