@@ -17,6 +17,7 @@ const Presentator = React.createClass({
 
   getDefaultProps() {
     return {
+      routeParams: null,
       onWillHide: noop,
       onWillSlide: noop
     }

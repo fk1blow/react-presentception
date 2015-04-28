@@ -3,22 +3,9 @@ import {RouteHandler} from 'react-router';
 
 class SlideWrapper extends React.Component {
 
-  // TODO: use react's prop types
-  componentDidMount() {
-    if (this.props.onSliderMounted instanceof Function)
-      this.props.onSliderMounted();
-  }
-
-  // TODO: use react's prop types
-  componentWillUnmount() {
-    if (this.props.onSliderUnmounted instanceof Function)
-      this.props.onSliderUnmounted();
-  }
-
   // TODO: add some defensive code
   getSlideComponent() {
     var {id, index} = this.props.presentation
-    console.log("id, index:", id, index)
     const ext = '.js';
     if (index === 0) {
       console.warn('deal with zero index router slides')

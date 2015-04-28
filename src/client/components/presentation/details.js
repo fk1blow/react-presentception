@@ -75,9 +75,7 @@ class PresentationDetails extends React.Component {
           initialSlide={params.index}
           onWillHide={this.onPresentatorShouldHide.bind(this)}
           onWillSlide={this.onPresentatorWillSlide.bind(this)}
-          totalSlides={6}>
-
-        </Presentator>
+          totalSlides={6} />
       </div>
     );
   }
