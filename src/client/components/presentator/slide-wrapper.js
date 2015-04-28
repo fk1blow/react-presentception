@@ -18,6 +18,7 @@ class SlideWrapper extends React.Component {
   // TODO: add some defensive code
   getSlideComponent() {
     var {id, index} = this.props.presentation
+    console.log("id, index:", id, index)
     const ext = '.js';
     if (index === 0) {
       console.warn('deal with zero index router slides')

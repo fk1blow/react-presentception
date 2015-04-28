@@ -8,7 +8,6 @@ class PresentationDetails extends React.Component {
 
   constructor(props) {
     super(props)
-    // this.state = { activePresenter: false }
     this.hardcodedTotalSlides = 6
   }
 
@@ -31,9 +30,9 @@ class PresentationDetails extends React.Component {
   }
 
   onPresentatorShouldHide() {
+    PresentatorActions.presentationEnded()
     this.context.router.transitionTo('presentation-details',
       {id: this.context.router.getCurrentParams().id});
-    this.setState({activePresenter: false})
   }
 
   onPresentatorWillSlide(slide) {
@@ -77,7 +76,7 @@ class PresentationDetails extends React.Component {
           onWillHide={this.onPresentatorShouldHide.bind(this)}
           onWillSlide={this.onPresentatorWillSlide.bind(this)}
           totalSlides={6}>
-            <RouteHandler presentation={params} />
+
         </Presentator>
       </div>
     );

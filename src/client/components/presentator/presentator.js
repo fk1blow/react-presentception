@@ -33,11 +33,6 @@ const Presentator = React.createClass({
       PresentatorActions.didNavigateToSlide(parseInt(routeParams.index))
   },
 
-  onCloseModal() {
-    PresentatorActions.presentationEnded()
-    this.props.onWillHide()
-  },
-
   onKeyNavigation(keyType) {
     PresentatorActions.navigateSlide(keyType)
   },
@@ -65,7 +60,7 @@ const Presentator = React.createClass({
       <ActionNavigator enable={this.state.active} onKeyNavigation={this.onKeyNavigation}>
         <div id="presentator" className={presentatorCls}>
           <button
-            onClick={this.onCloseModal}
+            onClick={this.props.onWillHide}
             title="close the presentation"
             className="pos-abs right-0 tc black close-btn input-invisible small"
             label="asdasd">ESC</button>
@@ -75,7 +70,7 @@ const Presentator = React.createClass({
             onLeftNav={this.onPageControlLeftNav}
             onRightNav={this.onPageControlRightNav} />
 
-          {this.props.children}
+          <RouteHandler presentation={routeParams} />
         </div>
       </ActionNavigator>
     )
