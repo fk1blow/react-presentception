@@ -65,7 +65,8 @@ export default Reflux.createStore({
       endIndex, active} = this.presentator
     const slide = slideNavigated || 0
     this.updatePresentator({
-      slide, endIndex, active,
+      slide, endIndex,
+      active: (slide >= 1 && slide <= endIndex),
       atSlideStart: (slideNavigated === 1),
       atSlideEnd: (slideNavigated === endIndex)
     })

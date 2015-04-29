@@ -72,7 +72,6 @@ class PresentationDetails extends React.Component {
 
         <Presentator
           routeParams={params}
-          initialSlide={params.index}
           onWillHide={this.onPresentatorShouldHide.bind(this)}
           onWillSlide={this.onPresentatorWillSlide.bind(this)}
           totalSlides={6} />
