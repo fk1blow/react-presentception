@@ -28,7 +28,7 @@ export default Reflux.createStore({
   },
 
   onRemoteCommand(command) {
-    PresentatorActions.onNavigateSlide(command)
+    PresentatorActions.navigateSlide(command)
   }
 
 })
