@@ -29,6 +29,7 @@ const Presentator = React.createClass({
   },
 
   componentWillReceiveProps(props) {
+    // TODO: routeParams should be renamed to something more relevant to `presentator`
     const {routeParams} = props
     if (routeParams && routeParams != this.props.routeParams)
       PresentatorActions.didNavigateToSlide(parseInt(routeParams.index))

@@ -20,7 +20,7 @@ export default Reflux.createStore({
 
   onPresentationStarted(slide, totalSlides) {
     const endIndex = totalSlides
-    this.updatePresentator({
+    this._updatePresentator({
       slide: parseInt(slide),
       endIndex,
       active: (slide >= 1 && slide <= endIndex),
@@ -32,7 +32,7 @@ export default Reflux.createStore({
   onPresentationEnded() {
     const {endIndex} = this.presentator
     this.presentator.active = false
-    this.updatePresentator({ atSlideStart: false, atSlideEnd: false,
+    this._updatePresentator({ atSlideStart: false, atSlideEnd: false,
       slide: 0, active: false, endIndex })
   },
 
@@ -52,7 +52,7 @@ export default Reflux.createStore({
     if (followingIndex != slide)
       PresentatorActions.didUpdateSlide(followingIndex)
 
-    this.updatePresentator({
+    this._updatePresentator({
       slide: followingIndex,
       atSlideStart: (followingIndex === 1),
       atSlideEnd: (followingIndex === endIndex),
@@ -64,7 +64,7 @@ export default Reflux.createStore({
     const {atSlideStart, atSlideEnd,
       endIndex, active} = this.presentator
     const slide = slideNavigated || 0
-    this.updatePresentator({
+    this._updatePresentator({
       slide, endIndex,
       active: (slide >= 1 && slide <= endIndex),
       atSlideStart: (slideNavigated === 1),
@@ -72,7 +72,7 @@ export default Reflux.createStore({
     })
   },
 
-  updatePresentator(slideState) {
+  _updatePresentator(slideState) {
     const {atSlideStart, atSlideEnd, slide,
      endIndex, active} = slideState
     this.presentator = {atSlideStart, atSlideEnd,
