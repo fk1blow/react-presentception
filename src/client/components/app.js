@@ -6,18 +6,22 @@ import Footer from '../components/footer'
 import ApplicationStore from '../stores/application/store'
 import ApplicationActions from '../stores/application/actions'
 
-export default React.createClass({
+export default class App extends React.Component {
 
-  mixins: [Reflux.connect(ApplicationStore)],
+  constructor(props) {
+    super(props)
+    this.state = ApplicationStore.getInitialState()
+  }
 
   componentDidMount() {
     require('fastclick').attach(document.body)
     ApplicationActions.bootstrap()
-  },
+    ApplicationStore.listen((updates) => this.setState(updates))
+  }
 
   shouldComponentUpdate(oldState, newState) {
     return oldState !== newState
-  },
+  }
 
   render() {
     return (
@@ -33,4 +37,4 @@ export default React.createClass({
     );
   }
 
-})
+}

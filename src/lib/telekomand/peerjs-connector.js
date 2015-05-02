@@ -26,7 +26,7 @@ class PeerjsConnector {
     console.log('should disconnect from the current peer')
   }
 
-  getPeerId() {
+  get peerId() {
     return this._peerId
   }
 
@@ -37,11 +37,12 @@ class PeerjsConnector {
 
   _createWrapper() {
     const peerWrapper = new Peer({
+      // TODO: this was taken from a demo - replace with your own
       key: 'x7fwx2kavpy6tj4i',
       debug: 3,
       logFunction: function() {
-        var copy = Array.prototype.slice.call(arguments).join(' ')
-        // console.log("logFunction:", copy)
+        var logs = Array.prototype.slice.call(arguments).join(' ')
+        // console.log("wrapper log:", logs)
       }
     })
 
@@ -54,19 +55,19 @@ class PeerjsConnector {
       serialization: 'none',
       metadata: {message: 'hi i want to chat with you!'}
     })
-    this._connection.on('open', () => this.emit('peer.become_master'))
-    this._connection.on('error', err => this.emit('peer.connect_error', err))
+    this._connection.on('open', () => this.emit('become_master'))
+    this._connection.on('error', err => this.emit('connection_error', err))
   }
 
   _attachWrapperListeners() {
     this._wrapper.on('open', id => {
       this._peerId = id
-      this.emit('peer.initialize', id)
+      this.emit('open', id)
     })
     this._wrapper.on('connection', dataConnection =>
-      this.emit('peer.become_host', dataConnection))
+      this.emit('become_host', dataConnection))
     this._wrapper.on('error', err =>
-      this.emit('peer.wrapper_error', err))
+      this.emit('wrapper_error', err))
   }
 
 }

@@ -1,7 +1,8 @@
-import Reflux from 'reflux';
+import Reflux from 'reflux'
 import ApplicationActions from './actions'
 import PresentatorActions from '../presentator/actions'
-import Telekomand from '../../../lib/telekomand/telekomand';
+import Telekomand from '../../../lib/telekomand/telekomand-facade'
+import ConnectorsList from '../../../lib/telekomand/connectors'
 
 /*
   Application store
@@ -9,9 +10,8 @@ import Telekomand from '../../../lib/telekomand/telekomand';
 export default Reflux.createStore({
 
   init() {
-    this.telekomand = {id: undefined, state: undefined}
+    this.telekomand = {id: 'xxxxxxxxxx', state: 'undefined'}
     this.listenToMany(ApplicationActions)
-    Telekomand.on('remote.command', this.onRemoteCommand)
   },
 
   getInitialState() {
@@ -19,16 +19,15 @@ export default Reflux.createStore({
   },
 
   onBootstrap() {
-    Telekomand.on('telekomand.ready', (id) => this.handleTelekomandReady(id))
-  },
+    Telekomand.turnOn(ConnectorsList.PEERJS)
 
-  handleTelekomandReady(id) {
-    this.telekomand.id = id
-    this.trigger({telekomand: this.telekomand})
-  },
+    Telekomand.on('telekomand.ready', (id) => {
+      this.telekomand.id = id
+      this.trigger({telekomand: this.telekomand})
+    })
 
-  onRemoteCommand(command) {
-    PresentatorActions.navigateSlide(command)
+    Telekomand.on('remote.command', (command) =>
+      PresentatorActions.navigateSlide(command))
   }
 
 })

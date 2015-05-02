@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router';
-import Telekomand from '../../../lib/telekomand/telekomand'
+import Telekomand from '../../../lib/telekomand/telekomand-facade'
 
 class RemoteConnect extends React.Component {
 

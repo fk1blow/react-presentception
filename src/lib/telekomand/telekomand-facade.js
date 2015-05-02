@@ -9,20 +9,36 @@
 
 import {EventEmitter} from 'eventemitter3'
 import ObjectAssign from 'object-assign'
+import PresenterControl from './presenter-control'
+import RemoteControl from './remote-control'
 
-export default class TelekomandFacade {
+// gracefully fucked by peerjs `window` requirements
+global.window = global.window || {}
+window.postMessage = window.postMessage ||  function() {}
 
-  constructor(connector, presenterControl, remoteControl) {
-    this._connector = connector
-    this._presenterControl = presenterControl
-    this._remoteControl = remoteControl
+class TelekomandFacade {
+
+  constructor() {
+    this._connector = null
+    this._presenterControl = null
+    this._remoteControl = null
+    this._turnedOn = false
+  }
+
+  turnOn(connector) {
+    if (this._turnedOn === true)
+      throw new Error('Telekomand already turned on')
+    this._connector = this._buildConnector(connector)
+    this._presenterControl = new PresenterControl(this._connector)
+    this._remoteControl = new RemoteControl(this._connector)
     this._attachConnectorHandlers()
-    this._attachControlsHandlers()
+    this._attachRemoteControlHandlers()
+    this._turnedOn = true
   }
 
   /*
     Connects to another peer becoming its 'remote' counterpart.
-    If the Telekomand is already engaged, this will return false
+    If the Telekomand it should already engaged, this will return false
 
     @param [string] peerId the id of the presenter peer
     @return [bool] false if already engaged, true otherwise
@@ -49,20 +65,27 @@ export default class TelekomandFacade {
     this._remoteControl.sendCommand(command)
   }
 
+  _buildConnector(connector) {
+    const connectorType = typeof connector
+    if (connectorType !== 'function')
+      throw new TypeError('invalid connectorType parameter of ', connectorType)
+    return new connector()
+  }
+
   _attachConnectorHandlers() {
-    this._connector.on('peer.initialize', peerId =>
+    this._connector.on('open', peerId =>
       this.emit('telekomand.ready', peerId))
 
-    this._connector.on('peer.connection_error', err =>
+    this._connector.on('connection_error', err =>
       this.emit('telekomand.error', err))
 
-    this._connector.on('peer.wrapper_error', err =>
+    this._connector.on('wrapper_error', err =>
       this.emit('telekomand.error', err))
   }
 
-  _attachControlsHandlers() {
+  _attachRemoteControlHandlers() {
     this._remoteControl.onEngage = () => {
-      console.log('remeote control has engaged a presenter')
+      console.log('remote control has engaged a presenter')
       this.emit('remote.engage')
     }
 
@@ -80,3 +103,5 @@ export default class TelekomandFacade {
 }
 
 ObjectAssign(TelekomandFacade.prototype, EventEmitter.prototype)
+
+export default new TelekomandFacade()
