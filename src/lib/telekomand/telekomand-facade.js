@@ -25,6 +25,12 @@ class TelekomandFacade {
     this._turnedOn = false
   }
 
+  /*
+    It turns on the telekomand by creating all the necessary object
+    in order to properly function
+
+    @param [object] connector the connector type to use
+   */
   turnOn(connector) {
     if (this._turnedOn === true)
       throw new Error('Telekomand already turned on')

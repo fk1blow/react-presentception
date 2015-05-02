@@ -1,5 +1,5 @@
 import React from 'react';
-import Telekomand from '../../../lib/telekomand/telekomand';
+import Telekomand from '../../../lib/telekomand/telekomand-facade';
 
 class RemoteControl extends React.Component {
 
